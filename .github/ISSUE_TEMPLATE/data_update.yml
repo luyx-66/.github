@@ -1,0 +1,45 @@
+name: Benchmark or pricing update
+description: Propose a reproducible benchmark result or a dated pricing correction.
+title: "[Data]: "
+labels: [data]
+body:
+  - type: dropdown
+    id: update_type
+    attributes:
+      label: Update type
+      options:
+        - Benchmark result
+        - Pricing correction
+        - Model availability correction
+        - Compatibility report
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public source or raw-result URL
+    validations:
+      required: true
+  - type: input
+    id: checked_at
+    attributes:
+      label: Checked date
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: textarea
+    id: methodology
+    attributes:
+      label: Methodology and environment
+      description: Include model ID, region, request count, runner version, and important limits.
+    validations:
+      required: true
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Confirmation
+      options:
+        - label: I removed credentials and private data.
+          required: true
+        - label: I disclosed any commercial relationship relevant to this submission.
+          required: true

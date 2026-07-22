@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: APIMART documentation
+    url: https://docs.apimart.ai/
+    about: API usage and integration documentation.
+  - name: APIMART account support
+    url: https://apimart.ai/
+    about: Account, billing, quota, and service support.
