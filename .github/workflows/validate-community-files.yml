@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: Parse issue forms
         run: |
-          ruby -e 'require "yaml"; Dir[".github/ISSUE_TEMPLATE/*.{yml,yaml}"].each { |path| data = YAML.safe_load_file(path, permitted_classes: [], aliases: false); abort("#{path}: missing name") unless data["name"]; abort("#{path}: missing body") unless data["body"].is_a?(Array) }'
+          ruby -e 'require "yaml"; Dir[".github/ISSUE_TEMPLATE/*.{yml,yaml}"].reject { |path| File.basename(path) == "config.yml" }.each { |path| data = YAML.safe_load_file(path, permitted_classes: [], aliases: false); abort("#{path}: missing name") unless data["name"]; abort("#{path}: missing body") unless data["body"].is_a?(Array) }'
