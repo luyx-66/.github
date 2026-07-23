@@ -1,8 +1,12 @@
 name: Benchmark or pricing update
-description: Propose a reproducible benchmark result or a dated pricing correction.
+description: Submit reproducible measurements, compatibility evidence, or a dated pricing correction.
 title: "[Data]: "
 labels: [data]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing verifiable data. Remove API keys, authorization headers, account IDs, and private prompts before submitting. Measurements without sanitized raw results may be discussed but will not be presented as verified.
   - type: dropdown
     id: update_type
     attributes:
@@ -15,23 +19,62 @@ body:
     validations:
       required: true
   - type: input
-    id: source
+    id: provider
     attributes:
-      label: Public source or raw-result URL
+      label: Provider or gateway
+      description: Name the service that handled the requests.
+      placeholder: Provider name
     validations:
       required: true
   - type: input
-    id: checked_at
+    id: model
     attributes:
-      label: Checked date
-      placeholder: YYYY-MM-DD
+      label: Exact model ID
+      description: Use the identifier sent in the API request, not only the marketing name.
+      placeholder: provider/model-version
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Sanitized raw-result URL
+      description: Link to a permanent public artifact, gist, or repository commit containing the raw measurements.
+    validations:
+      required: true
+  - type: input
+    id: test_window
+    attributes:
+      label: Test window
+      placeholder: 2026-07-23 08:00–09:00 UTC
+    validations:
+      required: true
+  - type: input
+    id: pricing_source
+    attributes:
+      label: Dated pricing or product source
+      description: Required for cost and availability claims; otherwise enter "Not applicable."
+      placeholder: https://provider.example/pricing — checked YYYY-MM-DD
     validations:
       required: true
   - type: textarea
     id: methodology
     attributes:
       label: Methodology and environment
-      description: Include model ID, region, request count, runner version, and important limits.
+      description: Include runner region, request count, concurrency, tool version or commit, timeouts, retries, exclusions, and important limits.
+      placeholder: |
+        Region:
+        Requests / concurrency:
+        Tool + version or commit:
+        Timeout / retries:
+        Exclusions:
+        Other limits:
+    validations:
+      required: true
+  - type: textarea
+    id: result_summary
+    attributes:
+      label: Result summary
+      description: Report successes and failures alongside latency, throughput, cost, or compatibility results.
     validations:
       required: true
   - type: checkboxes
@@ -42,4 +85,6 @@ body:
         - label: I removed credentials and private data.
           required: true
         - label: I disclosed any commercial relationship relevant to this submission.
+          required: true
+        - label: I understand that maintainers may reproduce a sample before marking this result as verified.
           required: true

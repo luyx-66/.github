@@ -1,0 +1,24 @@
+name: Validate community files
+
+on:
+  pull_request:
+    paths:
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate-community-files.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate-community-files.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse issue forms
+        run: |
+          ruby -e 'require "yaml"; Dir[".github/ISSUE_TEMPLATE/*.{yml,yaml}"].each { |path| data = YAML.safe_load_file(path, permitted_classes: [], aliases: false); abort("#{path}: missing name") unless data["name"]; abort("#{path}: missing body") unless data["body"].is_a?(Array) }'
